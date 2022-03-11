@@ -17,7 +17,7 @@ namespace Vodovoz.Domain.Logistic
 		{
 			Name = String.Empty;
 		}
-		
+
 		public virtual int Id { get; set; }
 
 		private string name;
@@ -41,6 +41,24 @@ namespace Vodovoz.Domain.Logistic
 			get => to;
 			set => SetField (ref to, value, () => To);
 		}
+
+		private int _roboatsId;
+		[Display(Name = "Id в справочнике Roboats")]
+		public virtual int RoboatsId
+		{
+			get => _roboatsId;
+			set => SetField(ref _roboatsId, value);
+		}
+
+		private string _roboatsAudiofile;
+
+		[Display(Name = "Имя аудиозаписи Roboats")]
+		public virtual string RoboatsAudiofile
+		{
+			get { return _roboatsAudiofile; }
+			set => SetField(ref _roboatsAudiofile, value);
+		}
+
 
 		public virtual string DeliveryTime => $"с {from:hh\\:mm} до {to:hh\\:mm}";
 
@@ -80,7 +98,7 @@ namespace Vodovoz.Domain.Logistic
 		}
 
 		#endregion
-		
+
 	}
 }
 

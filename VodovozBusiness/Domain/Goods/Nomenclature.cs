@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Data.Bindings.Collections.Generic;
-using System.Linq;
-using Gamma.Utilities;
+﻿using Gamma.Utilities;
 using QS.BusinessCommon.Domain;
 using QS.DomainModel.Entity;
 using QS.DomainModel.Entity.EntityPermissions;
 using QS.DomainModel.UoW;
 using QS.HistoryLog;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Data.Bindings.Collections.Generic;
+using System.Linq;
 using Vodovoz.Domain.Client;
 using Vodovoz.Domain.Employees;
 using Vodovoz.Domain.Logistic;
@@ -32,7 +32,7 @@ namespace Vodovoz.Domain.Goods
 		{
 			Category = NomenclatureCategory.water;
 		}
-		
+
 		#region Свойства
 
 		public virtual int Id { get; set; }
@@ -412,20 +412,38 @@ namespace Vodovoz.Domain.Goods
 			get => description;
 			set => SetField(ref description, value);
 		}
-		
+
 		private string bottleCapColor;
 		[Display(Name = "Цвет пробки 19л бутыли")]
 		public virtual string BottleCapColor {
 			get => bottleCapColor;
 			set => SetField(ref bottleCapColor, value);
 		}
-		
+
 		private OnlineStore onlineStore;
 		[Display(Name = "Интернет-магазин")]
 		public virtual OnlineStore OnlineStore {
 			get => onlineStore;
 			set => SetField(ref onlineStore, value);
 		}
+
+		private int? _roboatsId;
+		[Display(Name = "Id в справочнике Roboats")]
+		public int? RoboatsId
+		{
+			get { return _roboatsId; }
+			set { _roboatsId = value; }
+		}
+
+		private string _roboatsAudiofile;
+		[Display(Name = "Имя аудиозаписи Roboats")]
+		public string RoboatsAudiofile
+		{
+			get { return _roboatsAudiofile; }
+			set { _roboatsAudiofile = value; }
+		}
+
+
 
 		[Display(Name = "Цены закупки ТМЦ")]
 		public virtual IList<NomenclaturePurchasePrice> PurchasePrices
@@ -643,7 +661,7 @@ namespace Vodovoz.Domain.Goods
 		#endregion
 
 		#region Методы
-		
+
 		public virtual void SetNomenclatureCreationInfo(IUserRepository userRepository)
 		{
 			if(Id == 0 && !CreateDate.HasValue) {
@@ -715,7 +733,7 @@ namespace Vodovoz.Domain.Goods
 		public virtual bool CheckStartDateForNewPurchasePrice(DateTime newStartDate)
 		{
 			NomenclaturePurchasePrice oldPurchasePrice = _observablePurchasePrices.FirstOrDefault(x => x.EndDate == null);
-			
+
 			if(oldPurchasePrice == null)
 			{
 				return true;
@@ -735,7 +753,7 @@ namespace Vodovoz.Domain.Goods
 			{
 				throw new ArgumentNullException($"Не найден репозиторий { nameof(nomenclatureRepository) }");
 			}
-			
+
 			if(String.IsNullOrWhiteSpace(Name))
 				yield return new ValidationResult(
 					"Название номенклатуры должно быть заполнено.", new[] { this.GetPropertyName(o => o.Name) });
@@ -793,11 +811,11 @@ namespace Vodovoz.Domain.Goods
 			if(DependsOnNomenclature != null)
 			{
 				IList<Nomenclature> dependedNomenclatures = nomenclatureRepository.GetDependedNomenclatures(UoW, this);
-				
+
 				if(dependedNomenclatures.Any())
 				{
 					string dependedNomenclaturesText = "Цена данной номенклатуры не может зависеть от другой номенклатуры, т.к. от данной номенклатуры зависят цены следующих номенклатур:\n";
-					
+
 					foreach(Nomenclature n in dependedNomenclatures)
 					{
 						dependedNomenclaturesText += $"{n.Id}: {n.OfficialName} ({n.CategoryString})\n";
@@ -805,7 +823,7 @@ namespace Vodovoz.Domain.Goods
 
 					yield return new ValidationResult(dependedNomenclaturesText, new[] { this.GetPropertyName(o => o.DependsOnNomenclature) });
 				}
-				
+
 				if(DependsOnNomenclature.DependsOnNomenclature != null)
 					yield return new ValidationResult(
 						$"Номенклатура '{DependsOnNomenclature.ShortOrFullName}' указанная в качеcтве основной для цен этой номеклатуры, сама зависит от '{DependsOnNomenclature.DependsOnNomenclature.ShortOrFullName}'",
@@ -902,7 +920,7 @@ namespace Vodovoz.Domain.Goods
 		}
 
 		/// <summary>
-		/// Список номенклатур доступных для добавления в товары 
+		/// Список номенклатур доступных для добавления в товары
 		/// из диалога изменения заказа в закрытии МЛ
 		/// </summary>
 		public static NomenclatureCategory[] GetCategoriesForEditOrderFromRL()
@@ -989,10 +1007,10 @@ namespace Vodovoz.Domain.Goods
 
 		public static NomenclatureCategory[] GetCategoriesNotNeededToLoad()
 		{
-			return new[] { 
-				NomenclatureCategory.service, 
-				NomenclatureCategory.deposit, 
-				NomenclatureCategory.master 
+			return new[] {
+				NomenclatureCategory.service,
+				NomenclatureCategory.deposit,
+				NomenclatureCategory.master
 			};
 		}
 
