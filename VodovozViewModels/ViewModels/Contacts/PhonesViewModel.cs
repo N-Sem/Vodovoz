@@ -41,12 +41,14 @@ namespace Vodovoz.ViewModels.ViewModels.Contacts
 			get => readOnly;
 			set => SetField(ref readOnly, value, () => ReadOnly);
 		}
+		public ICommonServices CommonServices { get; }
 
 		public PhonesViewModel(IPhoneRepository phoneRepository, IUnitOfWork uow, IContactsParameters contactsParameters, ICommonServices commonServices)
 		{
 			this.phoneRepository = phoneRepository ?? throw new ArgumentNullException(nameof(phoneRepository));
 			this.contactsParameters = contactsParameters ?? throw new ArgumentNullException(nameof(contactsParameters));
-
+			CommonServices = commonServices;
+			
 			var roboAtsCounterpartyNamePermissions = commonServices.CurrentPermissionService.ValidateEntityPermission(typeof(RoboAtsCounterpartyName));
 			CanReadCounterpartyName = roboAtsCounterpartyNamePermissions.CanRead;
 			CanEditCounterpartyName = roboAtsCounterpartyNamePermissions.CanUpdate;
