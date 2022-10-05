@@ -1,11 +1,13 @@
 ﻿using Gamma.GtkWidgets;
 using Gamma.Widgets;
 using Gtk;
+using QS.DomainModel.UoW;
 using QS.Project.Journal.EntitySelector;
 using QS.Services;
 using QS.Widgets.GtkUI;
 using QSWidgetLib;
 using Vodovoz.Domain.Contacts;
+using Vodovoz.Services;
 using Vodovoz.ViewModels.ViewModels.Contacts;
 using Vodovoz.ViewWidgets.Mango;
 
@@ -33,10 +35,21 @@ namespace Vodovoz.Dialogs.Phones
 		public PhoneView(Phone phone, 
 			IEntityAutocompleteSelectorFactory RoboAtsCounterpartyNameSelectorFactory, 
 			IEntityAutocompleteSelectorFactory RoboAtsCounterpartyPatronymicSelectorFactory,
-			ICommonServices commonServices)
+			EntityRepositories.IPhoneRepository phoneRepository,
+			ICommonServices commonServices,
+			IUnitOfWork uow,
+			IPhoneTypeSettings phoneTypeSettings,
+			bool readOnly)
 		{
 			_hBox = new HBox();
-			ViewModel = new PhoneViewModel(phone, RoboAtsCounterpartyNameSelectorFactory, RoboAtsCounterpartyPatronymicSelectorFactory, commonServices);
+			ViewModel = new PhoneViewModel(phone, 
+				RoboAtsCounterpartyNameSelectorFactory, 
+				RoboAtsCounterpartyPatronymicSelectorFactory, 
+				phoneRepository, 
+				commonServices, 
+				uow, 
+				phoneTypeSettings, 
+				readOnly);
 		}
 
 		private void ConfigureDlg()
@@ -70,11 +83,11 @@ namespace Vodovoz.Dialogs.Phones
 		{
 			var phoneDataCombo = new yListComboBox
 			{
-				WidthRequest = 100,
-				ItemsList = ViewModel.PhoneTypes
+				WidthRequest = 100
 			};
 			phoneDataCombo.SetRenderTextFunc((PhoneType x) => x.Name);
-			phoneDataCombo.Binding.AddBinding(ViewModel.Phone, e => e.PhoneType, w => w.SelectedItem).InitializeFromSource();
+			phoneDataCombo.ItemsList = ViewModel.PhoneTypes;
+			phoneDataCombo.Binding.AddBinding(ViewModel, vm => vm.SelectedPhoneType, w => w.SelectedItem).InitializeFromSource();
 			phoneDataCombo.Binding.AddFuncBinding(ViewModel, e => !e.ReadOnly, w => w.Sensitive).InitializeFromSource();
 			_hBox.Add(phoneDataCombo);
 			_hBox.SetChildPacking(phoneDataCombo, true, true, 0, PackType.Start);
@@ -107,9 +120,13 @@ namespace Vodovoz.Dialogs.Phones
 
 		private void AddHandset()
 		{
+			var handsetBox = new yHBox();
+			handsetBox.Binding.AddBinding(ViewModel, vm => vm.PhoneIsArchive, w => w.Visible).InitializeFromSource();
 			var handset = new HandsetView(ViewModel.Phone.DigitsNumber);
-			_hBox.Add(handset);
-			_hBox.SetChildPacking(handset, false, false, 0, PackType.Start);
+			handsetBox.Add(handset);
+			handsetBox.SetChildPacking(handset, false, false, 0, PackType.Start);
+			_hBox.Add(handsetBox);
+			_hBox.SetChildPacking(handsetBox, false, false, 0, PackType.Start);
 		}
 
 		private void AddPhoneNumberEntry()

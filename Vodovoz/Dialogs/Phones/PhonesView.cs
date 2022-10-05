@@ -9,6 +9,7 @@ using Vodovoz.Domain.Contacts;
 using Vodovoz.ViewWidgets.Mango;
 using Vodovoz.ViewModels.ViewModels.Contacts;
 using System;
+using Vodovoz.Parameters;
 
 namespace Vodovoz.Dialogs.Phones
 {
@@ -75,7 +76,7 @@ namespace Vodovoz.Dialogs.Phones
 			HBox hBox = GetPhoneView(newPhone);
 
 			vboxPhones.Add(hBox);
-			vboxPhones.ShowAll();
+			// vboxPhones.ShowAll();
 			_hBoxList.Add(hBox);
 
 		}
@@ -85,7 +86,11 @@ namespace Vodovoz.Dialogs.Phones
 			var phoneView = new PhoneView(newPhone,
 				ViewModel.RoboAtsCounterpartyNameSelectorFactory, 
 				ViewModel.RoboAtsCounterpartyPatronymicSelectorFactory,
-				ViewModel.CommonServices);
+				ViewModel.PhoneRepository,
+				ViewModel.CommonServices,
+				ViewModel.UoW,
+				new PhoneTypeSettings(new ParametersProvider()),
+				ViewModel.ReadOnly);
 			AddPhoneDeleteButton(phoneView.HBoxPhoneView, newPhone);
 
 			return phoneView.HBoxPhoneView;

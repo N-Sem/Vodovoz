@@ -1,9 +1,13 @@
-﻿using QS.Project.Journal.EntitySelector;
+﻿using QS.DomainModel.UoW;
+using QS.Project.Journal.EntitySelector;
 using QS.Services;
 using QS.ViewModels;
+using System;
 using System.Collections.Generic;
 using Vodovoz.Domain.Client;
 using Vodovoz.Domain.Contacts;
+using Vodovoz.EntityRepositories;
+using Vodovoz.Services;
 
 namespace Vodovoz.ViewModels.ViewModels.Contacts
 {
@@ -11,6 +15,8 @@ namespace Vodovoz.ViewModels.ViewModels.Contacts
 	{
 		private Phone _phone;
 		private bool _readOnly = false;
+		private readonly IPhoneTypeSettings _phoneTypeSettings;
+		private readonly ICommonServices _commonServices;
 		public bool CanReadCounterpartyName { get; }
 		public bool CanEditCounterpartyName { get; }
 		public bool CanReadCounterpartyPatronymic { get; }
@@ -24,6 +30,13 @@ namespace Vodovoz.ViewModels.ViewModels.Contacts
 			get => Phone.PhoneType;
 			set => SetPhoneType(value);
 		}
+
+		public bool PhoneIsArchive
+		{
+			get => Phone.IsArchive;
+			set => Phone.IsArchive = value;
+		}
+
 		public Phone Phone
 		{
 			get => _phone;
@@ -38,12 +51,20 @@ namespace Vodovoz.ViewModels.ViewModels.Contacts
 		public PhoneViewModel(Phone phone,
 			IEntityAutocompleteSelectorFactory roboAtsCounterpartyNameSelectorFactory,
 			IEntityAutocompleteSelectorFactory roboAtsCounterpartyPatronymicSelectorFactory,
-			ICommonServices commonServices)
+			IPhoneRepository phoneRepository,
+			ICommonServices commonServices,
+			IUnitOfWork uow,
+			IPhoneTypeSettings phoneTypeSettings,
+			bool readOnly)
 		{
-			_phone = phone;
-			RoboAtsCounterpartyNameSelectorFactory = roboAtsCounterpartyNameSelectorFactory;
-			RoboAtsCounterpartyPatronymicSelectorFactory = roboAtsCounterpartyPatronymicSelectorFactory;
-
+			_readOnly = readOnly;
+			_phone = phone ?? throw new ArgumentNullException(nameof(phoneRepository));
+			_phoneTypeSettings = phoneTypeSettings ?? throw new ArgumentNullException(nameof(phoneTypeSettings));
+			_commonServices = commonServices ?? throw new ArgumentNullException(nameof(commonServices));
+			RoboAtsCounterpartyNameSelectorFactory = roboAtsCounterpartyNameSelectorFactory ?? throw new ArgumentNullException(nameof(roboAtsCounterpartyNameSelectorFactory));
+			RoboAtsCounterpartyPatronymicSelectorFactory = roboAtsCounterpartyPatronymicSelectorFactory ?? throw new ArgumentNullException(nameof(roboAtsCounterpartyPatronymicSelectorFactory));
+			PhoneTypes = phoneRepository.GetPhoneTypes(uow) ?? throw new ArgumentNullException(nameof(phoneRepository));
+			
 			var roboAtsCounterpartyNamePermissions = commonServices.CurrentPermissionService.ValidateEntityPermission(typeof(RoboAtsCounterpartyName));
 			CanReadCounterpartyName = roboAtsCounterpartyNamePermissions.CanRead;
 			CanEditCounterpartyName = roboAtsCounterpartyNamePermissions.CanUpdate;
@@ -56,9 +77,18 @@ namespace Vodovoz.ViewModels.ViewModels.Contacts
 		private void SetPhoneType(PhoneType phoneType)
 		{
 			Phone.PhoneType = phoneType;
-			if (phoneType.Id == 11)
+			bool a = _commonServices.InteractiveService.Question("Номер будет переведен в архив и пропадет в списке активных. Продолжить?");
+			if (phoneType.Id == _phoneTypeSettings.ArchiveId && a)
 			{
-
+				PhoneIsArchive = true;
+				ReadOnly = true;
+			}
+			else
+			{
+				if (PhoneIsArchive)
+				{
+					PhoneIsArchive = false;
+				}
 			}
 		}
 	}

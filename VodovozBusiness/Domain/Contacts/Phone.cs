@@ -20,6 +20,7 @@ namespace Vodovoz.Domain.Contacts
 		private Counterparty _counterparty;
 		private RoboAtsCounterpartyName _roboAtsCounterpartyName;
 		private RoboAtsCounterpartyPatronymic _roboAtsCounterpartyPatronymic;
+		private bool _isArchive;
 
 		public virtual int Id { get; set; }
 
@@ -87,6 +88,13 @@ namespace Vodovoz.Domain.Contacts
 		{
 			get => _roboAtsCounterpartyPatronymic;
 			set => SetField(ref _roboAtsCounterpartyPatronymic, value);
+		}
+
+		[Display(Name = "Архив")]
+		public virtual bool IsArchive
+		{
+			get => _isArchive;
+			set => SetField(ref _isArchive, value);
 		}
 
 		#endregion

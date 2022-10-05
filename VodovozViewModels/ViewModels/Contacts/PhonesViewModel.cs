@@ -21,6 +21,7 @@ namespace Vodovoz.ViewModels.ViewModels.Contacts
 
 		public IList<PhoneType> PhoneTypes;
 		public event Action PhonesListReplaced; //Убрать
+		public IUnitOfWork UoW { get; }
 		public DeliveryPoint DeliveryPoint { get; set; }
 		public Domain.Client.Counterparty Counterparty { get; set; }
 
@@ -45,7 +46,8 @@ namespace Vodovoz.ViewModels.ViewModels.Contacts
 
 		public PhonesViewModel(IPhoneRepository phoneRepository, IUnitOfWork uow, IContactsParameters contactsParameters, ICommonServices commonServices)
 		{
-			this.phoneRepository = phoneRepository ?? throw new ArgumentNullException(nameof(phoneRepository));
+			UoW = uow ?? throw new ArgumentNullException(nameof(uow));
+			PhoneRepository = phoneRepository ?? throw new ArgumentNullException(nameof(phoneRepository));
 			this.contactsParameters = contactsParameters ?? throw new ArgumentNullException(nameof(contactsParameters));
 			CommonServices = commonServices;
 			
@@ -64,6 +66,7 @@ namespace Vodovoz.ViewModels.ViewModels.Contacts
 		public PhonesViewModel(IPhoneRepository phoneRepository, IUnitOfWork uow, IContactsParameters contactsParameters, RoboatsJournalsFactory roboatsJournalsFactory,
 			ICommonServices commonServices) : this(phoneRepository, uow, contactsParameters, commonServices)
 		{
+			UoW = uow ?? throw new ArgumentNullException(nameof(uow));
 			if(roboatsJournalsFactory == null)
 			{
 				throw new ArgumentNullException(nameof(roboatsJournalsFactory));
@@ -82,7 +85,7 @@ namespace Vodovoz.ViewModels.ViewModels.Contacts
 		public bool CanReadCounterpartyPatronymic { get; }
 		public bool CanEditCounterpartyPatronymic { get; }
 
-		IPhoneRepository phoneRepository;
+		public IPhoneRepository PhoneRepository { get; private set; }
 
 		#endregion Prorerties
 
