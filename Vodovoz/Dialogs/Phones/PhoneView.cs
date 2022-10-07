@@ -120,13 +120,10 @@ namespace Vodovoz.Dialogs.Phones
 
 		private void AddHandset()
 		{
-			var handsetBox = new yHBox();
-			handsetBox.Binding.AddBinding(ViewModel, vm => vm.PhoneIsArchive, w => w.Visible).InitializeFromSource();
 			var handset = new HandsetView(ViewModel.Phone.DigitsNumber);
-			handsetBox.Add(handset);
-			handsetBox.SetChildPacking(handset, false, false, 0, PackType.Start);
-			_hBox.Add(handsetBox);
-			_hBox.SetChildPacking(handsetBox, false, false, 0, PackType.Start);
+			handset.Binding.AddBinding(ViewModel, vm => vm.PhoneIsArchive, w => w.Sensitive);
+			_hBox.Add(handset);
+			_hBox.SetChildPacking(handset, false, false, 0, PackType.Start);
 		}
 
 		private void AddPhoneNumberEntry()
