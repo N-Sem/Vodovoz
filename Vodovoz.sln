@@ -218,7 +218,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MangoController", "Services
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RoboAtsService", "Services\WebApi\RoboAtsService\RoboAtsService.csproj", "{459F05B8-01EC-4362-AA20-3E4B8248D8F5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackendInfrastructure", "Services\Library\BackendInfrastructure\BackendInfrastructure.csproj", "{CF7B6875-972D-4A2A-9CD7-621EB8DE79E8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BackendInfrastructure", "Services\Library\BackendInfrastructure\BackendInfrastructure.csproj", "{CF7B6875-972D-4A2A-9CD7-621EB8DE79E8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -2632,10 +2632,30 @@ Global
 		{CF7B6875-972D-4A2A-9CD7-621EB8DE79E8}.DebugWin|Any CPU.Build.0 = Debug|Any CPU
 		{CF7B6875-972D-4A2A-9CD7-621EB8DE79E8}.DebugWin|x86.ActiveCfg = Debug|Any CPU
 		{CF7B6875-972D-4A2A-9CD7-621EB8DE79E8}.DebugWin|x86.Build.0 = Debug|Any CPU
+		{CF7B6875-972D-4A2A-9CD7-621EB8DE79E8}.Docker|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF7B6875-972D-4A2A-9CD7-621EB8DE79E8}.Docker|Any CPU.Build.0 = Debug|Any CPU
+		{CF7B6875-972D-4A2A-9CD7-621EB8DE79E8}.Docker|x86.ActiveCfg = Debug|Any CPU
+		{CF7B6875-972D-4A2A-9CD7-621EB8DE79E8}.Docker|x86.Build.0 = Debug|Any CPU
+		{CF7B6875-972D-4A2A-9CD7-621EB8DE79E8}.LinuxDesktop|Any CPU.ActiveCfg = Release|Any CPU
+		{CF7B6875-972D-4A2A-9CD7-621EB8DE79E8}.LinuxDesktop|Any CPU.Build.0 = Release|Any CPU
+		{CF7B6875-972D-4A2A-9CD7-621EB8DE79E8}.LinuxDesktop|x86.ActiveCfg = Release|Any CPU
+		{CF7B6875-972D-4A2A-9CD7-621EB8DE79E8}.LinuxDesktop|x86.Build.0 = Release|Any CPU
 		{CF7B6875-972D-4A2A-9CD7-621EB8DE79E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CF7B6875-972D-4A2A-9CD7-621EB8DE79E8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CF7B6875-972D-4A2A-9CD7-621EB8DE79E8}.Release|x86.ActiveCfg = Release|Any CPU
 		{CF7B6875-972D-4A2A-9CD7-621EB8DE79E8}.Release|x86.Build.0 = Release|Any CPU
+		{CF7B6875-972D-4A2A-9CD7-621EB8DE79E8}.WCF|Any CPU.ActiveCfg = Release|Any CPU
+		{CF7B6875-972D-4A2A-9CD7-621EB8DE79E8}.WCF|Any CPU.Build.0 = Release|Any CPU
+		{CF7B6875-972D-4A2A-9CD7-621EB8DE79E8}.WCF|x86.ActiveCfg = Release|Any CPU
+		{CF7B6875-972D-4A2A-9CD7-621EB8DE79E8}.WCF|x86.Build.0 = Release|Any CPU
+		{CF7B6875-972D-4A2A-9CD7-621EB8DE79E8}.Web|Any CPU.ActiveCfg = Release|Any CPU
+		{CF7B6875-972D-4A2A-9CD7-621EB8DE79E8}.Web|Any CPU.Build.0 = Release|Any CPU
+		{CF7B6875-972D-4A2A-9CD7-621EB8DE79E8}.Web|x86.ActiveCfg = Release|Any CPU
+		{CF7B6875-972D-4A2A-9CD7-621EB8DE79E8}.Web|x86.Build.0 = Release|Any CPU
+		{CF7B6875-972D-4A2A-9CD7-621EB8DE79E8}.WinDesktop|Any CPU.ActiveCfg = Release|Any CPU
+		{CF7B6875-972D-4A2A-9CD7-621EB8DE79E8}.WinDesktop|Any CPU.Build.0 = Release|Any CPU
+		{CF7B6875-972D-4A2A-9CD7-621EB8DE79E8}.WinDesktop|x86.ActiveCfg = Release|Any CPU
+		{CF7B6875-972D-4A2A-9CD7-621EB8DE79E8}.WinDesktop|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

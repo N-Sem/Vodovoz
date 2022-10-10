@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq.Expressions;
 using Gamma.Binding.Core;
 using Gdk;
 using Gtk;
@@ -17,7 +18,7 @@ namespace Vodovoz.ViewWidgets.Mango
 		{
 			this.Build();
 
-			Binding = new BindingControler<HandsetView>(this);
+			Binding = new BindingControler<HandsetView>(this, new Expression<Func<HandsetView, object>>[] { w => w.Sensitive });
 			Phone = new Phone();
 			Phone.Number = number;
 		}
@@ -31,6 +32,11 @@ namespace Vodovoz.ViewWidgets.Mango
 		{
 			if(Phone.DigitsNumber.Length == 10)
 				MainClass.MainWin.MangoManager.MakeCall("7"+Phone.DigitsNumber);
+		}
+
+		protected virtual void OnChanged()
+		{
+			Binding.FireChange(w => w.Sensitive);
 		}
 	}
 }

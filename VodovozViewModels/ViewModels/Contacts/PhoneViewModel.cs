@@ -15,6 +15,7 @@ namespace Vodovoz.ViewModels.ViewModels.Contacts
 	{
 		private Phone _phone;
 		private bool _readOnly = false;
+		private bool _canArchivateNumber;
 		private readonly IPhoneTypeSettings _phoneTypeSettings;
 		private readonly ICommonServices _commonServices;
 		public bool CanReadCounterpartyName { get; }
@@ -72,19 +73,18 @@ namespace Vodovoz.ViewModels.ViewModels.Contacts
 			var roboAtsCounterpartyPatronymicPermissions = commonServices.CurrentPermissionService.ValidateEntityPermission(typeof(RoboAtsCounterpartyPatronymic));
 			CanReadCounterpartyPatronymic = roboAtsCounterpartyPatronymicPermissions.CanRead;
 			CanEditCounterpartyPatronymic = roboAtsCounterpartyPatronymicPermissions.CanUpdate;
+			_canArchivateNumber = _commonServices.CurrentPermissionService.ValidateEntityPermission(typeof(Phone)).CanUpdate;
 		}
 
 		private void SetPhoneType(PhoneType phoneType)
 		{
 			if(phoneType.Id == _phoneTypeSettings.ArchiveId)
 			{
-				if(!_commonServices.InteractiveService.Question("Номер будет переведен в архив и пропадет в списке активных. Продолжить?"))
+				if(_canArchivateNumber && !_commonServices.InteractiveService.Question("Номер будет переведен в архив и пропадет в списке активных. Продолжить?"))
 				{
 					return;
 				}
 				PhoneIsArchive = true;
-				ReadOnly = true;
-				Phone.PhoneType = phoneType;
 			}
 			else
 			{
@@ -92,9 +92,8 @@ namespace Vodovoz.ViewModels.ViewModels.Contacts
 				{
 					PhoneIsArchive = false;
 				}
-				Phone.PhoneType = phoneType;
-				ReadOnly = false;
 			}
+			Phone.PhoneType = phoneType;
 		}
 	}
 }

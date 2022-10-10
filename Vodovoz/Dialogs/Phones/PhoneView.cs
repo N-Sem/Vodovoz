@@ -121,7 +121,7 @@ namespace Vodovoz.Dialogs.Phones
 		private void AddHandset()
 		{
 			var handset = new HandsetView(ViewModel.Phone.DigitsNumber);
-			handset.Binding.AddBinding(ViewModel, vm => vm.PhoneIsArchive, w => w.Sensitive);
+			handset.Binding.AddFuncBinding(ViewModel.Phone, e => !e.IsArchive, w => w.Sensitive).InitializeFromSource();
 			_hBox.Add(handset);
 			_hBox.SetChildPacking(handset, false, false, 0, PackType.Start);
 		}
