@@ -623,7 +623,7 @@ namespace Vodovoz
 			};
 			var phoneSelectoFactory = new EntityAutocompleteSelectorFactory<PhonesJournalViewModel>(typeof(Phone),
 				() => new PhonesJournalViewModel(_contactPhoneFilter, UnitOfWorkFactory.GetDefaultFactory, ServicesConfig.CommonServices));
-			evmeContactPhone.SetEntityAutocompleteSelectorFactory(phoneSelectoFactory);
+			evmeContactPhone.SetEntitySelectorFactory(phoneSelectoFactory);
 
 			evmeDeliveryPoint.ChangedByUser += (s, e) =>
 			{
