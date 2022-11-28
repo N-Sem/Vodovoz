@@ -9,7 +9,7 @@ namespace Vodovoz.Views.Reports
 	{
 		public EdoUpdReportView(EdoUpdReportViewModel viewModel) : base(viewModel)
 		{
-			this.Build();
+			Build();
 			Configure();
 		}
 
@@ -27,7 +27,7 @@ namespace Vodovoz.Views.Reports
 			ConfigureReportTreeView();
 		}
 
-		private async void OnYbtnRunReportClicked(object sender, System.EventArgs e)
+		private void OnYbtnRunReportClicked(object sender, System.EventArgs e)
 		{
 			ViewModel.GenerateCommand.Execute();
 
@@ -41,14 +41,14 @@ namespace Vodovoz.Views.Reports
 				.AddColumn("№").AddNumericRenderer(r => ViewModel.Report.Rows.IndexOf(r) + 1)
 				.AddColumn("ИНН").AddTextRenderer(r => r.Inn)
 				.AddColumn("Название контрагента").AddTextRenderer(r => r.CounterpartyName)
-				.AddColumn("№ Заказа").AddTextRenderer(r => r.OrderId)
+				.AddColumn("№ Заказа").AddNumericRenderer(r => r.OrderId)
 				.AddColumn("Дата").AddTextRenderer(r => r.UpdDateString)
 				.AddColumn("GTIN").AddTextRenderer(r => r.Gtin)
 				.AddColumn("Кол-во").AddNumericRenderer(r => r.Count)
 				.AddColumn("Цена").AddNumericRenderer(r => r.Price)
 				.AddColumn("Стоимость строки с НДС").AddNumericRenderer(r => r.Sum)
 				.AddColumn("Статус УПД в ЭДО").AddTextRenderer(r => r.EdoDocFlowStatusString)
-				.AddColumn("Статус прямого вывода из оборота в Честном Знаке").AddTextRenderer(r => r.TrueMarkApiError)
+				.AddColumn("Статус прямого вывода из оборота в Честном Знаке").AddTextRenderer(r => r.TrueMarkApiErrorString)
 				.AddColumn("")
 				.Finish();
 		}

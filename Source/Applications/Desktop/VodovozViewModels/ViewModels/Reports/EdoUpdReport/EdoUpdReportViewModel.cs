@@ -58,23 +58,26 @@ namespace Vodovoz.ViewModels.ViewModels.Reports.EdoUpdReport
 			var edoDocFlowStatuses = new[] { EdoDocFlowStatus.Succeed, EdoDocFlowStatus.CompletedWithDivergences };
 
 			var query = UoW.Session.QueryOver(() => orderAlias)
-				.Left.JoinAlias(()=> orderAlias.Client, () => counterpartyAlias)
+				.Left.JoinAlias(() => orderAlias.Client, () => counterpartyAlias)
 				.JoinEntityAlias(() => orderItemAlias, () => orderAlias.Id == orderItemAlias.Order.Id, JoinType.LeftOuterJoin)
 				.Left.JoinAlias(() => orderItemAlias.Nomenclature, () => nomenclatureAlias)
 				.JoinEntityAlias(() => trueMarkApiDocumentAlias, () => orderAlias.Id == trueMarkApiDocumentAlias.Order.Id, JoinType.LeftOuterJoin)
 				.JoinEntityAlias(() => edoContainerAlias, () => orderAlias.Id == edoContainerAlias.Order.Id, JoinType.LeftOuterJoin);
 
-			var result = query
+			query
 				.Where(() => orderAlias.DeliveryDate >= DateFrom && orderAlias.DeliveryDate <= DateTo)
 				.WhereRestrictionOn(() => orderAlias.OrderStatus).IsIn(orderStatuses)
-				.And(() => counterpartyAlias.OrderStatusForSendingUpd != OrderStatusForSendingUpd.Delivered
-				           || orderAlias.OrderStatus != OrderStatus.OnTheWay)
-				.And(Restrictions.Disjunction()
-					.Add(() => trueMarkApiDocumentAlias.IsSuccess)
-					.Add(Restrictions.On(() => edoContainerAlias.EdoDocFlowStatus).IsIn(edoDocFlowStatuses))
-				)
+				.And(() => counterpartyAlias.PersonType == PersonType.legal)
 				.And(() => nomenclatureAlias.IsAccountableInChestniyZnak)
-				.And(() => nomenclatureAlias.Gtin != null)
+				.And(() => nomenclatureAlias.Gtin != null);
+
+
+			query.Where(Restrictions.Disjunction()
+				.Add(() => trueMarkApiDocumentAlias.IsSuccess)
+				.Add(Restrictions.On(() => edoContainerAlias.EdoDocFlowStatus).IsIn(edoDocFlowStatuses))
+			);
+
+			var result = query
 				.SelectList(list => list
 					.Select(() => counterpartyAlias.INN).WithAlias(() => resultAlias.Inn)
 					.Select(() => counterpartyAlias.Name).WithAlias(() => resultAlias.CounterpartyName)
@@ -96,7 +99,7 @@ namespace Vodovoz.ViewModels.ViewModels.Reports.EdoUpdReport
 		//private string GenerateSelectedFiltersString()
 		//{
 		//	var selectedFilters = new StringBuilder().AppendLine("Выбранные фильтры:");
-			
+
 		//	if(DateFrom != null && DateTo != null)
 		//	{
 		//		selectedFilters.AppendLine(
@@ -156,6 +159,8 @@ namespace Vodovoz.ViewModels.ViewModels.Reports.EdoUpdReport
 		public DateTime? DateFrom { get; set; }
 		public DateTime? DateTo { get; set; }
 		public bool HasDates => DateFrom != null && DateTo != null;
+		public bool IsSuccess { get; set; }
+		public bool IsNotSuccess { get; set; }
 	}
 }
 
