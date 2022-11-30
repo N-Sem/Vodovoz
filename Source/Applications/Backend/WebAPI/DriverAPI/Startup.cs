@@ -1,4 +1,4 @@
-﻿using DriverAPI.Data;
+using DriverAPI.Data;
 using DriverAPI.Library.Helpers;
 using DriverAPI.Library.Models;
 using DriverAPI.Middleware;
@@ -36,6 +36,8 @@ using Vodovoz.Services;
 using Vodovoz.Tools;
 using Vodovoz.Settings.Database;
 using System.Reflection;
+using DriverAPI.Services;
+using DriverAPI.Workers;
 
 namespace DriverAPI
 {
@@ -241,6 +243,12 @@ namespace DriverAPI
 			// ErrorReporter
 			services.AddScoped<IErrorReporter>((sp) => ErrorReporter.Instance);
 
+			// Сервисы
+			services.AddSingleton<IWakeUpDriverClientService, WakeUpDriverClientService>();
+
+			// Workers
+			services.AddHostedService<WakeUpSendCoordinatesNotificationSenderWorker>();
+
 			// Репозитории водовоза
 			services.AddScoped<ITrackRepository, TrackRepository>();
 			services.AddScoped<IComplaintsRepository, ComplaintsRepository>();
@@ -267,6 +275,7 @@ namespace DriverAPI
 			{
 				services.AddScoped(type);
 			}
+
 
 			// Хелперы
 			services.AddScoped<ISmsPaymentServiceAPIHelper, SmsPaymentServiceAPIHelper>();
