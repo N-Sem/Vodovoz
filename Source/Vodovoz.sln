@@ -284,13 +284,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrueMarkApi.Library", "Libraries\Core\Backend\TrueMarkApi.Library\TrueMarkApi.Library.csproj", "{D8D2EC1E-5F3B-4699-87E7-C85274A2BE66}"
 EndProject
 Global
-	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		Libraries\Core\Business\Vodovoz.Reports\Vodovoz.Reports.projitems*{2c663185-31b7-4254-a74c-2a468681f1ee}*SharedItemsImports = 5
-		Libraries\Core\Backend\Mango\Mango.Grpc\Mango.Grpc.projitems*{50993438-f358-4dcd-8e0a-ce1446c76487}*SharedItemsImports = 4
-		Libraries\Core\Backend\Mango\Mango.Grpc\Mango.Grpc.projitems*{8ff7c332-e6d1-456f-8067-11ce62aaef5a}*SharedItemsImports = 5
-		Libraries\Core\Backend\Mango\Mango.Grpc\Mango.Grpc.projitems*{bfb977b8-6c0b-4736-b7db-dd6b272f980a}*SharedItemsImports = 13
-		Libraries\Core\Business\Vodovoz.Reports\Vodovoz.Reports.projitems*{eb83f1ee-34b2-488d-bba5-6e2af4d3b3fc}*SharedItemsImports = 13
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Debug|x86 = Debug|x86
@@ -1053,9 +1046,7 @@ Global
 		{50993438-F358-4DCD-8E0A-CE1446C76487}.Docker|Any CPU.ActiveCfg = Debug|Any CPU
 		{50993438-F358-4DCD-8E0A-CE1446C76487}.Docker|x86.ActiveCfg = Debug|Any CPU
 		{50993438-F358-4DCD-8E0A-CE1446C76487}.LinuxDesktop|Any CPU.ActiveCfg = Debug|Any CPU
-		{50993438-F358-4DCD-8E0A-CE1446C76487}.LinuxDesktop|Any CPU.Build.0 = Debug|Any CPU
 		{50993438-F358-4DCD-8E0A-CE1446C76487}.LinuxDesktop|x86.ActiveCfg = Debug|Any CPU
-		{50993438-F358-4DCD-8E0A-CE1446C76487}.LinuxDesktop|x86.Build.0 = Debug|Any CPU
 		{50993438-F358-4DCD-8E0A-CE1446C76487}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{50993438-F358-4DCD-8E0A-CE1446C76487}.Release|Any CPU.Build.0 = Release|Any CPU
 		{50993438-F358-4DCD-8E0A-CE1446C76487}.Release|x86.ActiveCfg = Release|Any CPU
@@ -1117,9 +1108,7 @@ Global
 		{B1AB54EB-59C6-486B-A0C8-01ED960F1FA0}.Docker|x86.ActiveCfg = Debug|x86
 		{B1AB54EB-59C6-486B-A0C8-01ED960F1FA0}.Docker|x86.Build.0 = Debug|x86
 		{B1AB54EB-59C6-486B-A0C8-01ED960F1FA0}.LinuxDesktop|Any CPU.ActiveCfg = Debug|x86
-		{B1AB54EB-59C6-486B-A0C8-01ED960F1FA0}.LinuxDesktop|Any CPU.Build.0 = Debug|x86
 		{B1AB54EB-59C6-486B-A0C8-01ED960F1FA0}.LinuxDesktop|x86.ActiveCfg = Debug|x86
-		{B1AB54EB-59C6-486B-A0C8-01ED960F1FA0}.LinuxDesktop|x86.Build.0 = Debug|x86
 		{B1AB54EB-59C6-486B-A0C8-01ED960F1FA0}.Release|Any CPU.ActiveCfg = Release|x86
 		{B1AB54EB-59C6-486B-A0C8-01ED960F1FA0}.Release|Any CPU.Build.0 = Release|x86
 		{B1AB54EB-59C6-486B-A0C8-01ED960F1FA0}.Release|x86.ActiveCfg = Release|x86
@@ -1179,9 +1168,7 @@ Global
 		{CA429421-2CCE-4F9F-8DCE-379583AB297C}.Docker|x86.ActiveCfg = Debug|Any CPU
 		{CA429421-2CCE-4F9F-8DCE-379583AB297C}.Docker|x86.Build.0 = Debug|Any CPU
 		{CA429421-2CCE-4F9F-8DCE-379583AB297C}.LinuxDesktop|Any CPU.ActiveCfg = Debug|Any CPU
-		{CA429421-2CCE-4F9F-8DCE-379583AB297C}.LinuxDesktop|Any CPU.Build.0 = Debug|Any CPU
 		{CA429421-2CCE-4F9F-8DCE-379583AB297C}.LinuxDesktop|x86.ActiveCfg = Debug|Any CPU
-		{CA429421-2CCE-4F9F-8DCE-379583AB297C}.LinuxDesktop|x86.Build.0 = Debug|Any CPU
 		{CA429421-2CCE-4F9F-8DCE-379583AB297C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CA429421-2CCE-4F9F-8DCE-379583AB297C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CA429421-2CCE-4F9F-8DCE-379583AB297C}.Release|x86.ActiveCfg = Release|Any CPU
@@ -1215,9 +1202,7 @@ Global
 		{26F787D2-818A-4009-843A-76BC535699E1}.Docker|x86.ActiveCfg = Debug|Any CPU
 		{26F787D2-818A-4009-843A-76BC535699E1}.Docker|x86.Build.0 = Debug|Any CPU
 		{26F787D2-818A-4009-843A-76BC535699E1}.LinuxDesktop|Any CPU.ActiveCfg = Debug|Any CPU
-		{26F787D2-818A-4009-843A-76BC535699E1}.LinuxDesktop|Any CPU.Build.0 = Debug|Any CPU
 		{26F787D2-818A-4009-843A-76BC535699E1}.LinuxDesktop|x86.ActiveCfg = Debug|Any CPU
-		{26F787D2-818A-4009-843A-76BC535699E1}.LinuxDesktop|x86.Build.0 = Debug|Any CPU
 		{26F787D2-818A-4009-843A-76BC535699E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{26F787D2-818A-4009-843A-76BC535699E1}.Release|Any CPU.Build.0 = Release|Any CPU
 		{26F787D2-818A-4009-843A-76BC535699E1}.Release|x86.ActiveCfg = Release|Any CPU
@@ -1343,7 +1328,6 @@ Global
 		{CC518C77-1610-4017-8C77-E56C509C5BF9}.Docker|x86.ActiveCfg = Debug|Any CPU
 		{CC518C77-1610-4017-8C77-E56C509C5BF9}.Docker|x86.Build.0 = Debug|Any CPU
 		{CC518C77-1610-4017-8C77-E56C509C5BF9}.LinuxDesktop|Any CPU.ActiveCfg = Debug|Any CPU
-		{CC518C77-1610-4017-8C77-E56C509C5BF9}.LinuxDesktop|Any CPU.Build.0 = Debug|Any CPU
 		{CC518C77-1610-4017-8C77-E56C509C5BF9}.LinuxDesktop|x86.ActiveCfg = Debug|Any CPU
 		{CC518C77-1610-4017-8C77-E56C509C5BF9}.LinuxDesktop|x86.Build.0 = Debug|Any CPU
 		{CC518C77-1610-4017-8C77-E56C509C5BF9}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -1415,9 +1399,7 @@ Global
 		{684F4195-9DDA-4364-991A-EAB57C7DC0F2}.Docker|x86.ActiveCfg = Debug|Any CPU
 		{684F4195-9DDA-4364-991A-EAB57C7DC0F2}.Docker|x86.Build.0 = Debug|Any CPU
 		{684F4195-9DDA-4364-991A-EAB57C7DC0F2}.LinuxDesktop|Any CPU.ActiveCfg = Debug|Any CPU
-		{684F4195-9DDA-4364-991A-EAB57C7DC0F2}.LinuxDesktop|Any CPU.Build.0 = Debug|Any CPU
 		{684F4195-9DDA-4364-991A-EAB57C7DC0F2}.LinuxDesktop|x86.ActiveCfg = Debug|Any CPU
-		{684F4195-9DDA-4364-991A-EAB57C7DC0F2}.LinuxDesktop|x86.Build.0 = Debug|Any CPU
 		{684F4195-9DDA-4364-991A-EAB57C7DC0F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{684F4195-9DDA-4364-991A-EAB57C7DC0F2}.Release|Any CPU.Build.0 = Release|Any CPU
 		{684F4195-9DDA-4364-991A-EAB57C7DC0F2}.Release|x86.ActiveCfg = Release|Any CPU
@@ -1481,9 +1463,7 @@ Global
 		{16E8EBF7-5F39-4FC9-A5A3-2E93E4BAB9B5}.Docker|x86.ActiveCfg = Debug|Any CPU
 		{16E8EBF7-5F39-4FC9-A5A3-2E93E4BAB9B5}.Docker|x86.Build.0 = Debug|Any CPU
 		{16E8EBF7-5F39-4FC9-A5A3-2E93E4BAB9B5}.LinuxDesktop|Any CPU.ActiveCfg = Debug|Any CPU
-		{16E8EBF7-5F39-4FC9-A5A3-2E93E4BAB9B5}.LinuxDesktop|Any CPU.Build.0 = Debug|Any CPU
 		{16E8EBF7-5F39-4FC9-A5A3-2E93E4BAB9B5}.LinuxDesktop|x86.ActiveCfg = Debug|Any CPU
-		{16E8EBF7-5F39-4FC9-A5A3-2E93E4BAB9B5}.LinuxDesktop|x86.Build.0 = Debug|Any CPU
 		{16E8EBF7-5F39-4FC9-A5A3-2E93E4BAB9B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{16E8EBF7-5F39-4FC9-A5A3-2E93E4BAB9B5}.Release|Any CPU.Build.0 = Release|Any CPU
 		{16E8EBF7-5F39-4FC9-A5A3-2E93E4BAB9B5}.Release|x86.ActiveCfg = Release|Any CPU
@@ -3237,9 +3217,7 @@ Global
 		{D8D2EC1E-5F3B-4699-87E7-C85274A2BE66}.Docker|x86.ActiveCfg = Debug|Any CPU
 		{D8D2EC1E-5F3B-4699-87E7-C85274A2BE66}.Docker|x86.Build.0 = Debug|Any CPU
 		{D8D2EC1E-5F3B-4699-87E7-C85274A2BE66}.LinuxDesktop|Any CPU.ActiveCfg = Debug|Any CPU
-		{D8D2EC1E-5F3B-4699-87E7-C85274A2BE66}.LinuxDesktop|Any CPU.Build.0 = Debug|Any CPU
 		{D8D2EC1E-5F3B-4699-87E7-C85274A2BE66}.LinuxDesktop|x86.ActiveCfg = Debug|Any CPU
-		{D8D2EC1E-5F3B-4699-87E7-C85274A2BE66}.LinuxDesktop|x86.Build.0 = Debug|Any CPU
 		{D8D2EC1E-5F3B-4699-87E7-C85274A2BE66}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D8D2EC1E-5F3B-4699-87E7-C85274A2BE66}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D8D2EC1E-5F3B-4699-87E7-C85274A2BE66}.Release|x86.ActiveCfg = Release|Any CPU
@@ -3394,6 +3372,13 @@ Global
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5C28294A-BE19-449D-A626-5F2CC748368D}
+	EndGlobalSection
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		Libraries\Core\Business\Vodovoz.Reports\Vodovoz.Reports.projitems*{2c663185-31b7-4254-a74c-2a468681f1ee}*SharedItemsImports = 5
+		Libraries\Core\Backend\Mango\Mango.Grpc\Mango.Grpc.projitems*{50993438-f358-4dcd-8e0a-ce1446c76487}*SharedItemsImports = 4
+		Libraries\Core\Backend\Mango\Mango.Grpc\Mango.Grpc.projitems*{8ff7c332-e6d1-456f-8067-11ce62aaef5a}*SharedItemsImports = 5
+		Libraries\Core\Backend\Mango\Mango.Grpc\Mango.Grpc.projitems*{bfb977b8-6c0b-4736-b7db-dd6b272f980a}*SharedItemsImports = 13
+		Libraries\Core\Business\Vodovoz.Reports\Vodovoz.Reports.projitems*{eb83f1ee-34b2-488d-bba5-6e2af4d3b3fc}*SharedItemsImports = 13
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		Policies = $0
