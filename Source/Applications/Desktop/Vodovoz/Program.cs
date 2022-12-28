@@ -282,6 +282,16 @@ namespace Vodovoz
 					SmsPaymentServiceSetting.Init(parametersProvider.GetParameterValue("sms_payment_send_service_address"));
 				}
 			}
+
+			//Настройка сервисов
+			if(parametersProvider.ContainsParameter("instant_sms_enabled_database") && parametersProvider.ContainsParameter("sms_service_address"))
+			{
+				if(parametersProvider.GetParameterValue("instant_sms_enabled_database") == loginDialogName)
+				{
+					InstantSmsServiceSetting.Init(parametersProvider.GetParameterValue("sms_service_address"));
+				}
+			}
+
 			DriverApiParametersProvider.InitializeNotifications(parametersProvider, loginDialogName);
 
 			CreateTempDir();
