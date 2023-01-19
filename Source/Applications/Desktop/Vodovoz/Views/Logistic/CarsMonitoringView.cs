@@ -383,7 +383,7 @@ namespace Vodovoz.Views.Logistic
 					.SelectMany(x => x.RouteListsIds.Keys)
 					.ToArray();
 
-				var start = DateTime.Now; // Значение времени? 0_о
+				var start = ViewModel.ShowHistory ? ViewModel.HistoryDate.AddHours(ViewModel.HistoryHour) : DateTime.Now; // Значение времени? 0_о
 
 				DateTime disconnectedDateTime = start.Add(ViewModel.DriverDisconnectedTimespan);
 
