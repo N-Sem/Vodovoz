@@ -1,4 +1,4 @@
-using DriverAPI.Data;
+﻿using DriverAPI.Data;
 using DriverAPI.Library.Helpers;
 using DriverAPI.Library.Models;
 using DriverAPI.Middleware;
@@ -38,6 +38,7 @@ using Vodovoz.Settings.Database;
 using System.Reflection;
 using DriverAPI.Services;
 using DriverAPI.Workers;
+using System.Net.Http.Headers;
 
 namespace DriverAPI
 {
@@ -142,6 +143,16 @@ namespace DriverAPI
 			{
 				c.BaseAddress = new Uri(Configuration.GetSection("FastPaymentsServiceAPI").GetValue<string>("ApiBase"));
 				c.DefaultRequestHeaders.Add("Accept", "application/json");
+			});
+
+			services.AddHttpClient<IFCMAPIHelper, FCMAPIHelper>(c =>
+			{
+				var apiConfiguration = Configuration.GetSection("FCMAPI");
+
+				c.BaseAddress = new Uri(apiConfiguration["ApiBase"]);
+				c.DefaultRequestHeaders.Accept.Clear();
+				c.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+				c.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("key", "=" + apiConfiguration["AccessToken"]);
 			});
 		}
 
