@@ -27,6 +27,7 @@ using Vodovoz.EntityRepositories.Sale;
 using Vodovoz.Services;
 using Vodovoz.TempAdapters;
 using Vodovoz.ViewModels.Journals.JournalViewModels.Logistic;
+using DateTimeHelpers;
 
 namespace Vodovoz.ViewModels.ViewModels.Logistic
 {
@@ -392,8 +393,7 @@ namespace Vodovoz.ViewModels.ViewModels.Logistic
 				query.Where(() => routeListAlias.AdditionalLoadingDocument != null);
 			}
 
-			var result = query
-				.JoinAlias(rl => rl.Driver, () => driverAlias)
+			query.JoinAlias(rl => rl.Driver, () => driverAlias)
 				.JoinAlias(rl => rl.Car, () => carAlias)
 				.JoinEntityAlias(() => carVersionAlias,
 					() => carVersionAlias.Car.Id == carAlias.Id
@@ -401,8 +401,14 @@ namespace Vodovoz.ViewModels.ViewModels.Logistic
 						(carVersionAlias.EndDate == null || carVersionAlias.EndDate >= routeListAlias.Date))
 				.Where(rl => rl.Status == RouteListStatus.EnRoute)
 				.Where(rl => rl.Driver != null)
-				.Where(rl => rl.Car != null)
-				.SelectList(list => list
+				.Where(rl => rl.Car != null);
+
+			if(ShowHistory)
+			{
+				query.Where(Restrictions.Between(Projections.Property(() => routeListAlias.Date), HistoryDate, HistoryDate.LatestDayTime()));
+			}
+
+			var result = query.SelectList(list => list
 					.Select(() => driverAlias.Id).WithAlias(() => resultAlias.Id)
 					.Select(() => driverAlias.Name).WithAlias(() => resultAlias.Name)
 					.Select(() => driverAlias.LastName).WithAlias(() => resultAlias.LastName)
