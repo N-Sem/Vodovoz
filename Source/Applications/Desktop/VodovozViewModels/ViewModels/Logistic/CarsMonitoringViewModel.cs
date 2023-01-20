@@ -183,11 +183,6 @@ namespace Vodovoz.ViewModels.ViewModels.Logistic
 			set => SetField(ref _showAddresses, value);
 		}
 
-		public bool ShowHistory
-		{
-			get => _showHistory;
-			set => SetField(ref _showHistory, value);
-		}
 
 		public bool SeparateVindowOpened
 		{
@@ -224,10 +219,52 @@ namespace Vodovoz.ViewModels.ViewModels.Logistic
 			set => SetField(ref _driverDisconnectedTimespan, value);
 		}
 
+		public bool ShowHistory
+		{
+			get => _showHistory;
+			set
+			{
+				SetField(ref _showHistory, value);
+				RefreshWorkingDriversCommand?.Execute();
+				if(ShowDistrictsOverlay)
+				{
+					RefreshFastDeliveryDistrictsCommand.Execute();
+				}
+			}
+		}
+
 		public DateTime HistoryDate
 		{
 			get => _historyDate;
-			set => SetField(ref _historyDate, value);
+			set
+			{
+				SetField(ref _historyDate, value);
+				if(ShowHistory)
+				{
+					RefreshWorkingDriversCommand?.Execute();
+					if(ShowDistrictsOverlay)
+					{
+						RefreshFastDeliveryDistrictsCommand.Execute();
+					}
+				}
+			}
+		}
+
+		public int HistoryHour
+		{
+			get => _historyHour;
+			set
+			{
+				SetField(ref _historyHour, value);
+				if(ShowHistory)
+				{
+					RefreshWorkingDriversCommand?.Execute();
+					if(ShowDistrictsOverlay)
+					{
+						RefreshFastDeliveryDistrictsCommand.Execute();
+					}
+				}
+			}
 		}
 
 		public override bool HasChanges => false;
@@ -273,12 +310,6 @@ namespace Vodovoz.ViewModels.ViewModels.Logistic
 		public DelegateCommand RefreshFastDeliveryDistrictsCommand { get; }
 
 		public IEnumerable<int> HistoryHours { get; }
-
-		public int HistoryHour
-		{
-			get => _historyHour;
-			set => SetField(ref _historyHour, value);
-		}
 
 		private void OpenRouteListKeepingTab(int routeListId)
 		{
@@ -399,13 +430,16 @@ namespace Vodovoz.ViewModels.ViewModels.Logistic
 					() => carVersionAlias.Car.Id == carAlias.Id
 						&& carVersionAlias.StartDate <= routeListAlias.Date &&
 						(carVersionAlias.EndDate == null || carVersionAlias.EndDate >= routeListAlias.Date))
-				.Where(rl => rl.Status == RouteListStatus.EnRoute)
 				.Where(rl => rl.Driver != null)
 				.Where(rl => rl.Car != null);
 
 			if(ShowHistory)
 			{
 				query.Where(Restrictions.Between(Projections.Property(() => routeListAlias.Date), HistoryDate, HistoryDate.LatestDayTime()));
+			}
+			else
+			{
+				query.Where(rl => rl.Status == RouteListStatus.EnRoute);
 			}
 
 			var result = query.SelectList(list => list
@@ -498,7 +532,15 @@ namespace Vodovoz.ViewModels.ViewModels.Logistic
 		private void RefreshFastDeliveryDistricts()
 		{
 			FastDeliveryDistricts.Clear();
-			var districts = _scheduleRestrictionRepository.GetDistrictsWithBorderForFastDelivery(_unitOfWork);
+			IList<District> districts;
+			if(ShowHistory)
+			{
+				districts = _scheduleRestrictionRepository.GetDistrictsWithBorderForFastDeliveryAtDateTime(_unitOfWork, HistoryDate.AddHours(HistoryHour));
+			}
+			else
+			{
+				districts = _scheduleRestrictionRepository.GetDistrictsWithBorderForFastDelivery(_unitOfWork);
+			}
 			foreach(var district in districts)
 			{
 				FastDeliveryDistricts.Add(district);
